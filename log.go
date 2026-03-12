@@ -39,10 +39,10 @@ var (
 )
 
 func init() {
-	// 预计算各级别的颜色前缀
+	// 预计算各级别的颜色前缀（不包含 RESET，让整个日志行都有颜色）
 	levelPrefixes = make([]string, 4)
 	for i := 0; i < 4; i++ {
-		levelPrefixes[i] = ALL_COLOR[i] + "【" + LogLevelTags[i] + "】" + RESET
+		levelPrefixes[i] = ALL_COLOR[i] + "【" + LogLevelTags[i] + "】"
 	}
 }
 
@@ -153,11 +153,9 @@ func startAsyncLogger(bufSize int) {
 	asyncStopChan = make(chan struct{})
 	asyncEnabled = true
 
-	asyncWaitGroup.Add(1)
-	go func() {
-		defer asyncWaitGroup.Done()
+	asyncWaitGroup.Go(func() {
 		processAsyncLog()
-	}()
+	})
 }
 
 // processAsyncLog 异步日志处理器

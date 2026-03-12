@@ -25,6 +25,7 @@ func logAndLevel(level int, format string, v ...interface{}) string {
 		str.WriteString("]")
 		str.WriteString(prefix)
 		str.WriteString(s)
+		str.WriteString(RESET)
 		str.WriteString("\n")
 		fmt.Fprint(os.Stdout, str.String())
 		return ""
@@ -32,6 +33,7 @@ func logAndLevel(level int, format string, v ...interface{}) string {
 
 	str.WriteString(prefix)
 	str.WriteString(s)
+	str.WriteString(RESET)
 	str.WriteString("\n")
 
 	if level == LogLevelError {
