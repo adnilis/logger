@@ -387,7 +387,6 @@ func (fl *fileLogger) runBackgroundTasks() {
 			}
 
 			fl.mu.Unlock()
-		default:
 		}
 
 		if fl.closed {
